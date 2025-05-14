@@ -12,8 +12,8 @@ const Login = () => {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
   const toast = useToast();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
   const history = useHistory();
@@ -60,7 +60,7 @@ const Login = () => {
     } catch (error) {
       toast({
         title: "Error Occurred!",
-        description: error.response.data.message,
+        description: error?.response?.data?.message || "Something went wrong!",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -118,4 +118,7 @@ const Login = () => {
         Get Guest User Credentials
       </Button>
     </VStack>
- 
+  );
+};
+
+export default Login;
