@@ -11,7 +11,7 @@ const cors = require("cors");
 dotenv.config();
 connectDB();
 const app = express();
-app.use(express.json()); // to accept json data
+app.use(express.json()); // to accept JSON data
 
 // --------------------------CORS Configuration------------------------------
 const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:3000";
@@ -32,7 +32,7 @@ const __dirname1 = path.resolve();
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname1, "/frontend/build")));
 
-  app.get("*", (req, res) =>
+  app.get("*", (req, res) => 
     res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"))
   );
 } else {
@@ -48,7 +48,7 @@ app.use(errorHandler);
 // --------------------------Server Setup--------------------------------------
 const PORT = process.env.PORT || 5000;
 const server = app.listen(PORT, () =>
-  console.log(`Server running on PORT ${PORT}...`.yellow.bold)
+  console.log(`Server running on PORT ${PORT}...`)
 );
 
 // --------------------------Socket.io Configuration--------------------------
@@ -86,8 +86,7 @@ io.on("connection", (socket) => {
     });
   });
 
-  socket.off("setup", () => {
+  socket.on("disconnect", () => {
     console.log("USER DISCONNECTED");
-    socket.leave(userData._id);
   });
 });
